@@ -72,10 +72,10 @@ public class ConsulterEmprunt {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
         buttonPanel.add(Box.createHorizontalGlue());
-        buttonPanel.add(Button1);
+        
         
         buttonPanel.add(retour);
-
+        buttonPanel.add(Button1);
         frame.getContentPane().setLayout(new BorderLayout());
         frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
         frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
