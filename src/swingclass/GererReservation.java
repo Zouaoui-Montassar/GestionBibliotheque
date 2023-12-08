@@ -65,6 +65,7 @@ public class GererReservation {
                         int Id_Reservation = (int) table.getValueAt(selectedRow, 0);
                         Reservation reservation= Reservation.ChercherReservation(Id_Reservation);
                         reservation.AnnulerReservation(reservation.getId_Reservation());
+                        JOptionPane.showMessageDialog(frame, "Reservation annuleé avec succès!");
                         SwingUtilities.invokeLater(() -> new GererReservation(user)); 
                         frame.dispose();   
                     } catch (IOException e1) {

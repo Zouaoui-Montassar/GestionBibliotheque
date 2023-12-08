@@ -49,7 +49,46 @@ public class ConsulterLivre {
 
         JButton button_AjouterEmprunt = new JButton("Emprunter/Réserver");
         button_AjouterEmprunt.addActionListener(e -> {
-            // ... (your existing ActionListener code)
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow != -1) {
+                int idLivre = (int) table.getValueAt(selectedRow, 0);
+                String titre = (String) table.getValueAt(selectedRow,1);
+                String auteur = (String) table.getValueAt(selectedRow,2);
+                String genre = (String) table.getValueAt(selectedRow,3);
+                String dispo =(String) table.getValueAt(selectedRow, 4);
+                boolean disponibilite;
+                if (dispo=="Disponible"){
+                    disponibilite=true;
+                }
+                else{
+                    disponibilite=false;
+                }
+                Livre livre = new Livre(idLivre, titre, auteur, genre, disponibilite); 
+                System.out.println(livre);
+                if (livre.getDisponibilite()) {
+                    Emprunt emprunt = new Emprunt(true); 
+                    System.out.println(emprunt);
+                    try {
+                        emprunt.AjouterEmprunt(user, livre);
+                        JOptionPane.showMessageDialog(frame, "Emprunt ajouté avec succès!");
+                        SwingUtilities.invokeLater(() -> new ConsulterLivre(user));
+                        frame.dispose();
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(frame, "Erreur lors de l'ajout de l'emprunt: " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    Reservation reservation = new Reservation(); 
+                    System.out.println(reservation);
+                    try {
+                        reservation.AjouterReservation(user.getIdUtilisateur(), idLivre);
+                        JOptionPane.showMessageDialog(frame, "Réservation ajoutée avec succès!");
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(frame, "Erreur lors de l'ajout de la réservation: " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(frame, "Veuillez sélectionner un livre avant d'ajouter un emprunt.");
+            }
         });
 
         // Use FlowLayout for the button panel to place buttons next to each other
