@@ -33,7 +33,7 @@ public class SupprimerLivre extends JFrame {
         try {
             List<Livre> livres = Livre.AfficherCatalogue();
             for (Livre livre : livres) {
-                model.addRow(new Object[]{livre.getId_Livre(), livre.getTitre(), livre.getAuteur(), livre.getGenre(), livre.getDisponibilite()});
+                model.addRow(new Object[]{livre.getId_Livre(), livre.getTitre(), livre.getAuteur(), livre.getGenre(), livre.getDisponibilite()?"Disponible ":"Non Disponible"});
             }
 
         } catch (IOException e) {

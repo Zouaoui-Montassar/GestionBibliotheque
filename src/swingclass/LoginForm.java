@@ -14,12 +14,12 @@ public class LoginForm {
         JLabel label1 = new JLabel("Login : ");
         frame.add(label1);
         JTextField textField1 = new JTextField(50);
-        textField1.setText("zouaoui.montassar@etudiant-fst.utm.tn");
+        
         frame.add(textField1);
         JLabel label2 = new JLabel("Password : ");
         frame.add(label2);
         JPasswordField passwordField1 = new JPasswordField(50);
-        passwordField1.setText("montassar123");
+        
         frame.add(passwordField1);
         JButton button = new JButton("Connexion");
         button.addActionListener(e -> {
