@@ -460,21 +460,25 @@ public static List<String> GenererRapport() {
         DataBaseConnection dbcnx = new DataBaseConnection();
         Connection conn = null;
         PreparedStatement stmt = null;
-        long n = 0 ;
+        ResultSet resultSet = null;
+        long n = 0;
+    
         try {
             conn = dbcnx.getConnection();
-            stmt = conn.prepareStatement("SELECT * FROM emprunt WHERE Id_Utilisateur = ?");
+            stmt = conn.prepareStatement("SELECT MAX(Date_Retour) AS MaxDate FROM emprunt WHERE Id_Utilisateur = ?");
             stmt.setInt(1, user.getIdUtilisateur());
-            ResultSet resultSet = stmt.executeQuery();
-            while (resultSet.next()) {
+            resultSet = stmt.executeQuery();
+    
+            if (resultSet.next()) {
                 Calendar calendar1 = Calendar.getInstance();
                 calendar1.setTime(new Date());
                 Calendar calendar2 = Calendar.getInstance();
-                calendar2.setTime(resultSet.getDate("Date_Retour"));
-                long differenceInMillis = calendar2.getTimeInMillis() - calendar1.getTimeInMillis(); // Calcul de la différence en millisecondes
-                n = differenceInMillis / (1000 * 60 * 60 * 24); // Conversion en jours
+                calendar2.setTime(resultSet.getDate("MaxDate"));
+                long differenceInMillis = calendar2.getTimeInMillis() - calendar1.getTimeInMillis();
+                n = differenceInMillis / (1000 * 60 * 60 * 24);
             }
-        } catch (SQLException e) {
+    
+        }catch (SQLException e) {
             throw new IOException(e.getMessage());
         } finally {
             dbcnx.closeConnection();

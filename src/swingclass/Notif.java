@@ -43,7 +43,7 @@ public class Notif {
             for (Emprunt emprunt : emprunts) {
                 Utilisateur user1 = Emprunt.AfficherUser(emprunt);
                 int n = Emprunt.CalculeJoursRestant(user1, emprunt);
-                if (n<=3){
+                if (n<=100){
             	Livre livre=Emprunt.AfficherLivre(emprunt);
                 model.addRow(new Object[]{emprunt.getId_Emprunt(), user1.getIdUtilisateur(),livre.getTitre(), livre.getAuteur(),emprunt.getDate_Emprunt(),emprunt.getDate_Retour(),emprunt.getStatut(),n});
             }}
@@ -70,8 +70,12 @@ public class Notif {
                         emprunt = Emprunt.rechercheEmprunt(id_emprunt);
                         Utilisateur user1 = Emprunt.AfficherUser(emprunt);
                         String Subject = "Rappel Retour Livre "+titre ;
-                        String Message = "cher(e) " + user1.getNom() + "\n" + "ceci est un mail de rappel de retour de livre "+ titre + "\n" + "il vous reste "+ n + "jours "
-                        + "\n" + "s'il vous plait retourner le avant le "+ emprunt.getDate_Retour();
+                        String Message = "Cher(e) " + user1.getRole() + "\n" + "Nous espérons que vous allez bien. Ceci est un rappel amical concernant le retour du livre \"" + titre + "\" emprunté à la Bibliothèque FST.\n"
+                        + "Il vous reste " + n + " jours avant la date limite de retour, prévue le " + emprunt.getDate_Retour() + ".\n"
+                        + "Merci de bien vouloir retourner le livre à la bibliothèque dans les délais.\n"
+                        + "Nous apprécions votre coopération.\n\n"
+                        + "Cordialement,\n"
+                        + "L'équipe de la Bibliothèque FST";
                         EmailSender.sendEmail(user1.getLogin(), Subject, Message);
                         JOptionPane.showMessageDialog(frame, "mail envoyee");
                     } catch (IOException e1) {

@@ -34,7 +34,7 @@ public class AjouterLivre extends JFrame {
 
         disponibleRadioButton = new JRadioButton("Disponible");
         nonDisponibleRadioButton = new JRadioButton("Non Disponible");
-
+        disponibleRadioButton.setSelected(true);
         disponibiliteGroup = new ButtonGroup();
         disponibiliteGroup.add(disponibleRadioButton);
         disponibiliteGroup.add(nonDisponibleRadioButton);
