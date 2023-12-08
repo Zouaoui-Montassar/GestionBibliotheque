@@ -12,6 +12,7 @@ public class ConsulterLivre {
     public ConsulterLivre(Utilisateur user) {
         JFrame frame = new JFrame("Consulter Livre");
         frame.setLayout(new BorderLayout());
+        
         frame.setSize(1024, 768);
 
 
@@ -108,6 +109,7 @@ frame.add(buttonPanel, BorderLayout.SOUTH);
 
 // Set default close operation and make the frame visible
 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+frame.setLocationRelativeTo(null); 
 frame.setVisible(true);
 
 

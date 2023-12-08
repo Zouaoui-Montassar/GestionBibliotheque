@@ -23,6 +23,7 @@ public class GererCompte {
         JButton button_Accueil = new JButton("Accueil");
         button_Accueil.addActionListener(e -> {SwingUtilities.invokeLater(() -> new Acceuil(user));frame.dispose();});        
         frame.add(button_Accueil);
+        frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }

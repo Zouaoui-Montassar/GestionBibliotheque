@@ -109,6 +109,7 @@ public class RechercherLivre {
 
         // Set default close operation and make the frame visible
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 

@@ -8,6 +8,7 @@ public class GererEmprunt {
         JFrame frame = new JFrame("Gerer Emprunt");
         frame.setLayout(new FlowLayout());
         frame.setSize(1024, 768);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
         JButton button = new JButton("Consulter Emprunt en cours pour modifier ou valider retours des empruntes ");
