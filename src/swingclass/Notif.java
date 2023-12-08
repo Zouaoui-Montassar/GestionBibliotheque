@@ -34,10 +34,10 @@ public class Notif {
         model.addColumn("Id utilisateur");
         model.addColumn("Titre");
         model.addColumn("Auteur");
-        model.addColumn("date Emprunte");
-        model.addColumn("date Retour");
-        model.addColumn("statut Actuel");
-        model.addColumn("jours Restant");
+        model.addColumn("Date Emprunte");
+        model.addColumn("Date Retour");
+        model.addColumn("Statut Actuel");
+        model.addColumn("Jours Restant");
         try {
             List<Emprunt> emprunts = Emprunt.RappelRetour(true);
             for (Emprunt emprunt : emprunts) {
@@ -45,7 +45,7 @@ public class Notif {
                 int n = Emprunt.CalculeJoursRestant(user1, emprunt);
                 if (n<=100){
             	Livre livre=Emprunt.AfficherLivre(emprunt);
-                model.addRow(new Object[]{emprunt.getId_Emprunt(), user1.getIdUtilisateur(),livre.getTitre(), livre.getAuteur(),emprunt.getDate_Emprunt(),emprunt.getDate_Retour(),emprunt.getStatut(),n});
+                model.addRow(new Object[]{emprunt.getId_Emprunt(), user1.getIdUtilisateur(),livre.getTitre(), livre.getAuteur(),emprunt.getDate_Emprunt(),emprunt.getDate_Retour(),emprunt.getStatut()?"En cours" :"Terminee",n});
             }}
         } catch (IOException e) {
             JOptionPane.showMessageDialog(frame, e.getMessage());

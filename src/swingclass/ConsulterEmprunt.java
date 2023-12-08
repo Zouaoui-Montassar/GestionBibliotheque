@@ -79,7 +79,7 @@ public class ConsulterEmprunt {
         frame.getContentPane().setLayout(new BorderLayout());
         frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
         frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
 
 
     }
