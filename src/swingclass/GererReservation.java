@@ -24,7 +24,7 @@ public class GererReservation {
     public GererReservation(Utilisateur user){
         JFrame frame = new JFrame("Consulter Reservation En attente");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
+        
         frame.setLayout(new FlowLayout());
         frame.setSize(1024, 768);
         frame.setLocationRelativeTo(null);

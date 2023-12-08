@@ -17,7 +17,7 @@ public class RechercherLivre {
         frame = new JFrame("Rechercher Livre");
         frame.setLayout(new BorderLayout());
         frame.setSize(1024, 768);
-
+        frame.setLocationRelativeTo(null);
         // Components for searching a book
         searchField = new JTextField();
         searchField.setPreferredSize(new Dimension(200, 25));
@@ -94,11 +94,11 @@ public class RechercherLivre {
         // Create a button for returning to the main page
         JButton button_Accueil = new JButton("Accueil");
         button_Accueil.addActionListener(e -> {
-            SwingUtilities.invokeLater(() -> new Acceuil(user)); // Replace null with your user object
+            SwingUtilities.invokeLater(() -> new Acceuil(user)); 
             frame.dispose();
         });
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT)); // Align buttons to the right
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT)); 
         
         // Add buttons to the button panel
         buttonPanel.add(button_Accueil);
@@ -109,7 +109,6 @@ public class RechercherLivre {
 
         // Set default close operation and make the frame visible
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
