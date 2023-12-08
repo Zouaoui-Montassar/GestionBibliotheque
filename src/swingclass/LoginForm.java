@@ -7,21 +7,29 @@ import Exceptions.*;
 
 public class LoginForm {
     public LoginForm(){
-        JFrame frame = new JFrame("LoginForm");
-        frame.setLayout(new FlowLayout());
-        frame.setSize(1024, 768);
-        frame.setVisible(true);
-        JLabel label1 = new JLabel("Login : ");
-        frame.add(label1);
-        JTextField textField1 = new JTextField(50);
-        
-        frame.add(textField1);
-        JLabel label2 = new JLabel("Password : ");
-        frame.add(label2);
-        JPasswordField passwordField1 = new JPasswordField(50);
-        
-        frame.add(passwordField1);
+        JFrame frame = new JFrame("Gestion Bibliotheque");
+        frame.setLayout(new GridBagLayout());
+        frame.setSize(800, 600);
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 30, 10, 10);
+
+        JLabel titleLabel = new JLabel("Gestion Bibliotheque en ligne");
+        titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 40f));
+
+        JLabel label1 = new JLabel("Login");
+        JTextField textField1 = new JTextField(40);
+
+        JLabel label2 = new JLabel("Password");
+        JPasswordField passwordField1 = new JPasswordField(40);
+
+        JButton resetButton = new JButton("Réinitialiser");
         JButton button = new JButton("Connexion");
+
+        JButton button2 = new JButton("Créer un compte");
+        JLabel subscribeLabel = new JLabel("Besoin d'un compte ?");
         button.addActionListener(e -> {
             String login = textField1.getText(); 
             String password = new String(passwordField1.getPassword()); 
@@ -40,7 +48,7 @@ public class LoginForm {
                         frame.dispose();
                     }
                     else{
-                        JOptionPane.showMessageDialog(frame, Role);
+                        JOptionPane.showMessageDialog(frame, "Bienvenue "+authenticated.getNom()+"! ");
                         SwingUtilities.invokeLater(() -> new Acceuil(authenticated));
                         frame.dispose();
                     }
@@ -53,13 +61,55 @@ public class LoginForm {
                 JOptionPane.showMessageDialog(frame, ex.getMessage());
             }}
         });
-        frame.add(button);
-        JButton button2 = new JButton ("Creer un compte");
+        
+        
         button2.addActionListener(e -> {
             SwingUtilities.invokeLater(() -> new NewAccountForm());
             frame.dispose();
         });
-        frame.add(button2);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        resetButton.addActionListener(e -> {
+                textField1.setText("");
+                passwordField1.setText("");
+        });
+        // layout , kol component nguedlou grid w nzidou , lezem haka , el layout eli khdemt bih howua el gridbaglayout()
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        frame.add(titleLabel, gbc);
+
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        frame.add(label1, gbc);
+
+        gbc.gridx = 1;
+        frame.add(textField1, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        frame.add(label2, gbc);
+
+        gbc.gridx = 1;
+        frame.add(passwordField1, gbc);
+
+        gbc.gridy = 3;
+        gbc.gridx = 0;
+        frame.add(resetButton, gbc);
+
+        gbc.gridx = 1;
+        frame.add(button, gbc);
+
+        gbc.gridy = 4;
+        gbc.gridx = 0;
+        frame.add(subscribeLabel, gbc);
+
+        gbc.gridx = 1;
+        frame.add(button2, gbc);
+
+        
+        frame.setLocationRelativeTo(null);
+
+        frame.setVisible(true);
+        
+        
     }
 }
