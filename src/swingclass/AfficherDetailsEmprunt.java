@@ -49,6 +49,7 @@ public class AfficherDetailsEmprunt {
                 System.out.println("depuis l'interface avant valider le retour "+emprunt);
                 System.out.println("depuis l'interface avant valider le retour "+livre);
                 emprunt.ValiderRetour(user,livre);
+                JOptionPane.showMessageDialog(detailsFrame,"Livre retouné avec success ! ");
                 SwingUtilities.invokeLater(() -> new ConsulterEmprunt(user));
                 detailsFrame.dispose();
                 System.out.println("depuis l'interface apres valider le retour"+emprunt);
