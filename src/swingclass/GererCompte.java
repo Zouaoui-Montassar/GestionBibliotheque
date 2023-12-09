@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class GererCompte {
     public GererCompte(Utilisateur user){
-        JFrame frame = new JFrame("Accueil");
+        JFrame frame = new JFrame("Gestion du compte");
         frame.setLayout(new GridBagLayout());
         frame.setSize(1024, 768);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

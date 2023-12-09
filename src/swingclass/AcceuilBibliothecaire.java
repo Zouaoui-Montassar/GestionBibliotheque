@@ -58,8 +58,8 @@ public class AcceuilBibliothecaire {
         frame.setVisible(true);
 
         // events 
-        button5.addActionListener(e -> {SwingUtilities.invokeLater(() -> new ToutEmprunt(user));frame.dispose();});  
-        button.addActionListener(e -> {SwingUtilities.invokeLater(() -> new Rapport(user));frame.dispose();});  
+        button.addActionListener(e -> {SwingUtilities.invokeLater(() -> new ToutEmprunt(user));frame.dispose();});  
+        button5.addActionListener(e -> {SwingUtilities.invokeLater(() -> new Rapport(user));frame.dispose();});  
         button2.addActionListener(e -> {SwingUtilities.invokeLater(() -> new Notif(user));frame.dispose();}); 
         button3.addActionListener(e -> {SwingUtilities.invokeLater(() -> new GererLivre(user));frame.dispose();});   
         button4.addActionListener(e -> {SwingUtilities.invokeLater(() -> new LoginForm());frame.dispose();});

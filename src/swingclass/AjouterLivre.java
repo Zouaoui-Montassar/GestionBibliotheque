@@ -18,7 +18,7 @@ public class AjouterLivre extends JFrame {
 
         JFrame frame = new JFrame("Ajouter Livre");
         frame.setLayout(new GridBagLayout());
-        frame.setSize(1024, 768); // Set the frame size to 1024x768
+        frame.setSize(1024, 768); 
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -45,7 +45,7 @@ public class AjouterLivre extends JFrame {
         JButton addButton = new JButton("Ajouter Livre");
         addButton.addActionListener(e -> ajouterLivre());
 
-        JButton backButton = new JButton("Retour a gerer livre");
+        JButton backButton = new JButton("Retour à Gerer Livre");
         backButton.addActionListener(e -> {
             SwingUtilities.invokeLater(() -> new GererLivre(user));
             frame.dispose();

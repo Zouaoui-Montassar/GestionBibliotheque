@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ConsulterLivre {
     public ConsulterLivre(Utilisateur user) {
-        JFrame frame = new JFrame("Consulter Livre");
+        JFrame frame = new JFrame("Consulter catalogue livre");
         frame.setLayout(new BorderLayout());
         frame.setSize(1024, 768);
         frame.setLocationRelativeTo(null);

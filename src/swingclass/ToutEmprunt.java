@@ -11,7 +11,7 @@ import myclass.*;
 
 public class ToutEmprunt {
     public ToutEmprunt(Utilisateur user){
-        JFrame frame = new JFrame("ToutEmprunt");
+        JFrame frame = new JFrame("La liste de touts les emprunts");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout());
         frame.setSize(1024, 768);

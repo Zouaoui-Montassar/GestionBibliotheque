@@ -16,7 +16,7 @@ import java.util.List;
 public class Notif {
     private static int selectedRow = -1;
     public Notif(Utilisateur user) {
-        JFrame frame = new JFrame("Notif");
+        JFrame frame = new JFrame("Notification par email");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout());
         frame.setSize(650, 300);
@@ -59,7 +59,7 @@ public class Notif {
                     selectedRow = table.getSelectedRow();
                 }
         });
-        JButton Button1 = new JButton("envoyer un mail de rappel");
+        JButton Button1 = new JButton("Envoyer un mail de rappel");
         Button1.addActionListener(e -> {
                 if (selectedRow != -1) {
                     int id_emprunt = (int) table.getValueAt(selectedRow, 0);
@@ -78,7 +78,7 @@ public class Notif {
                         + "Cordialement,\n"
                         + "L'équipe de la Bibliothèque FST";
                         EmailSender.sendEmail(user1.getLogin(), Subject, Message);
-                        JOptionPane.showMessageDialog(frame, "mail envoyee");
+                        JOptionPane.showMessageDialog(frame, "Mail envoyé avec success !");
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
