@@ -91,10 +91,35 @@ public class ConsulterLivre {
             }
         });
 
+
+    JButton button_Details = new JButton("Détails du Livre");
+button_Details.addActionListener(e -> {
+    int selectedRow = table.getSelectedRow();
+    if (selectedRow != -1) {
+        // Get book details from the selected row
+        
+        String titre = (String) table.getValueAt(selectedRow, 1);
+        String auteur = (String) table.getValueAt(selectedRow, 2);
+        String genre = (String) table.getValueAt(selectedRow, 3);
+        String dispo = (String) table.getValueAt(selectedRow, 4);
+        
+        // Create a string for book details
+        String bookDetails = "Titre: " + titre + "\nAuteur: " + auteur + "\nGenre: " + genre + "\nDisponibilité: " + dispo;
+        
+        // Display book details in a dialog
+        JOptionPane.showMessageDialog(frame, bookDetails, "Détails du Livre", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(frame, "Veuillez sélectionner un livre pour afficher les détails.");
+    }
+});
+
+
+
         // Use FlowLayout for the button panel to place buttons next to each other
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.add(button_Accueil);
         buttonPanel.add(button_AjouterEmprunt);
+        buttonPanel.add(button_Details);
 
         // Add the button panel to the frame
         frame.add(buttonPanel, BorderLayout.SOUTH);
