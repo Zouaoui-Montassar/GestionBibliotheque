@@ -38,17 +38,21 @@ public class ToutEmprunt {
             for (Emprunt emprunt : emprunts) {
                 Utilisateur user1 = Emprunt.AfficherUser(emprunt);
                 long n = Emprunt.CalculeJoursRestant(user1, emprunt);
-            	Livre livre=Emprunt.AfficherLivre(emprunt);
                 String statut=emprunt.getStatut()? "En cours" : "Termineé";
+                if (statut.equals("Termineé")){
+                    n=0;
+                }
+            	Livre livre=Emprunt.AfficherLivre(emprunt);
                 model.addRow(new Object[]{emprunt.getId_Emprunt(), user1.getIdUtilisateur(),livre.getTitre(), livre.getAuteur(),emprunt.getDate_Emprunt(),emprunt.getDate_Retour(),statut,n});
             }
             List<Emprunt> emprunts2 = Emprunt.RappelRetour(false);
             for (Emprunt emprunt : emprunts2) {
                 Utilisateur user1 = Emprunt.AfficherUser(emprunt);
-                long n = Emprunt.CalculeJoursRestant(user1, emprunt);
-            	Livre livre=Emprunt.AfficherLivre(emprunt);
+                
                 String statut=emprunt.getStatut()? "En cours" : "Termineé";
-                model.addRow(new Object[]{emprunt.getId_Emprunt(), user1.getIdUtilisateur(),livre.getTitre(), livre.getAuteur(),emprunt.getDate_Emprunt(),emprunt.getDate_Retour(),statut,n});
+            	Livre livre=Emprunt.AfficherLivre(emprunt);
+                
+                model.addRow(new Object[]{emprunt.getId_Emprunt(), user1.getIdUtilisateur(),livre.getTitre(), livre.getAuteur(),emprunt.getDate_Emprunt(),emprunt.getDate_Retour(),statut,"N/a"});
             }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(frame, e.getMessage());
