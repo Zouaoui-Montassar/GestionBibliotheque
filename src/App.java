@@ -12,7 +12,7 @@ public class App {
         File lockFile = new File(LOCK_FILE_PATH);
 
         if (lockFile.exists()) {
-            System.out.println("Another instance is already running. Exiting.");
+            System.out.println("Another instance is already running.");
             System.exit(0);
         }
 

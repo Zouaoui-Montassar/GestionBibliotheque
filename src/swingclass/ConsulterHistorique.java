@@ -32,20 +32,20 @@ public class ConsulterHistorique  {
 
         try {
             List<Emprunt> emprunts = Emprunt.AfficherHistoriqueEmprunt(user);
-            System.out.println(emprunts);
             for (Emprunt emprunt : emprunts) {
             	Livre livre=Emprunt.AfficherLivre(emprunt);
-                model.addRow(new Object[]{emprunt.getId_Emprunt(),livre.getTitre(), livre.getAuteur(),emprunt.getDate_Emprunt(),emprunt.getDate_Retour(), emprunt.getStatut() == true ? "En cours" : "Termineé"});
-                System.out.println(new Object[]{emprunt.getId_Emprunt(),livre.getTitre(), livre.getAuteur(),emprunt.getDate_Emprunt(),emprunt.getDate_Retour(),emprunt.getStatut()});
-            }
-
+                model.addRow(new Object[]{  emprunt.getId_Emprunt(),
+                                            livre.getTitre(), 
+                                            livre.getAuteur(),
+                                            emprunt.getDate_Emprunt(),
+                                            emprunt.getDate_Retour(), 
+                                            emprunt.getStatut() == true ? "En cours" : "Termineé"});}
         } catch (IOException e) {
             JOptionPane.showMessageDialog(frame, e.getMessage());
         }
         JButton button_Accueil = new JButton("Retour");
         button_Accueil.addActionListener(e -> {SwingUtilities.invokeLater(() -> new GererEmprunt(user));frame.dispose();});    
         
-        // tri table
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
         sorter.setComparator(model.getColumnCount() - 1, (o1, o2) -> {
             String status1 = (String) o1;

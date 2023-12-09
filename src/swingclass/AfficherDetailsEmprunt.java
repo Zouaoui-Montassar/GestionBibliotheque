@@ -10,28 +10,12 @@ public class AfficherDetailsEmprunt {
         JFrame detailsFrame = new JFrame("Détails de l'emprunt");
         
         detailsFrame.setVisible(true);
-        detailsFrame.setSize(700, 400);
+        detailsFrame.setSize(800, 400);
         String ch = String.format("Emprunt ID: %d | Livre: %s | Auteur : %s | Date Emprunt: %s | Date Retour: %s |",idEmprunt, titre, auteur, date1, date2);
         JTextArea detailsTextArea = new JTextArea(ch);
         detailsFrame.setLayout(new BorderLayout());
         
         detailsFrame.add(detailsTextArea, BorderLayout.CENTER);
-        
-        
-
-        /*JButton annulerEmpruntButton = new JButton("Annuler Emprunt ");
-        annulerEmpruntButton.addActionListener(e -> {
-            try{
-                Emprunt emprunt = Emprunt.rechercheEmprunt(idEmprunt);
-                Livre livre = Emprunt.AfficherLivre(emprunt);
-                emprunt.AnnulerEmprunt(emprunt,livre);
-                SwingUtilities.invokeLater(() -> new ConsulterEmprunt(user));
-                detailsFrame.dispose();
-                } catch (IOException e1) {
-                    JOptionPane.showMessageDialog(detailsFrame, e1.getMessage());
-
-                }
-        });*/
 
         JButton modifierDateRetourButton = new JButton("Modifier date retour de l'Emprunt ");
         modifierDateRetourButton.addActionListener(e -> {
@@ -49,7 +33,6 @@ public class AfficherDetailsEmprunt {
         JButton validerRetourLivreButton = new JButton("Valider retour de Livre");
         validerRetourLivreButton.addActionListener(e -> {
             try{
-
                 int confirmResult = JOptionPane.showConfirmDialog(
                 detailsFrame,
                 "Voulez-vous vraiment retourner ce livre ?",
@@ -59,14 +42,10 @@ public class AfficherDetailsEmprunt {
                 if (confirmResult == JOptionPane.YES_OPTION) {
                 Emprunt emprunt = Emprunt.rechercheEmprunt(idEmprunt);
                 Livre livre = Emprunt.AfficherLivre(emprunt);
-                System.out.println("depuis l'interface avant valider le retour "+emprunt);
-                System.out.println("depuis l'interface avant valider le retour "+livre);
                 emprunt.ValiderRetour(user,livre);
                 JOptionPane.showMessageDialog(detailsFrame,"Livre retouné avec success ! ");
                 SwingUtilities.invokeLater(() -> new ConsulterEmprunt(user));
-                detailsFrame.dispose();
-                System.out.println("depuis l'interface apres valider le retour"+emprunt);
-                System.out.println("depuis l'interface apres valider le retour"+livre);}
+                detailsFrame.dispose();}
                 else{
                     JOptionPane.showMessageDialog(detailsFrame, "Opération annulée ");
                 }
@@ -81,7 +60,6 @@ public class AfficherDetailsEmprunt {
 
         JPanel buttonPanel = new JPanel(new GridLayout(3, 1));
         
-        //buttonPanel.add(annulerEmpruntButton);
         buttonPanel.add(modifierDateRetourButton);
         buttonPanel.add(validerRetourLivreButton);
         buttonPanel.add(retour);

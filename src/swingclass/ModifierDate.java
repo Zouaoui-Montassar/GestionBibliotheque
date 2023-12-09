@@ -13,7 +13,7 @@ public class ModifierDate {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5); // Padding
+        gbc.insets = new Insets(5, 5, 5, 5);
 
         JLabel label1 = new JLabel("Veuillez saisir combien voulez-vous ajouter de jours à votre emprunt : ");
         gbc.gridx = 0;

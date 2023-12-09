@@ -45,28 +45,9 @@ public class GererLivre {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
-        // events 
         button1.addActionListener(e -> {SwingUtilities.invokeLater(() -> new AjouterLivre(user));frame.dispose();});
         button2.addActionListener(e -> {SwingUtilities.invokeLater(() -> new SupprimerLivre(user));frame.dispose();}); 
         button_Accueil.addActionListener(e -> {SwingUtilities.invokeLater(() -> new AcceuilBibliothecaire(user));frame.dispose();}); 
-        
-
-        
-
-        
-
-
-        
-        
-        
-
-
-
-
-
-
-
 
     }
 }

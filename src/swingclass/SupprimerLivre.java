@@ -47,7 +47,6 @@ public class SupprimerLivre extends JFrame {
         selectionModel.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 selectedRow = table.getSelectedRow();
-                System.out.println("Selected Row: " + selectedRow);
             }
         });
 

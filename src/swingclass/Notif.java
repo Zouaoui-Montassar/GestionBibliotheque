@@ -4,7 +4,6 @@ import java.awt.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
 import Exceptions.IOException;
 import myclass.EmailSender;
 import myclass.Emprunt;
@@ -43,8 +42,7 @@ public class Notif {
             for (Emprunt emprunt : emprunts) {
                 Utilisateur user1 = Emprunt.AfficherUser(emprunt);
                 int n = Emprunt.CalculeJoursRestant(user1, emprunt);
-                // 3 jours , hot 100 w testi
-                if (n<=3){
+                if (n<=100){
             	Livre livre=Emprunt.AfficherLivre(emprunt);
                 model.addRow(new Object[]{emprunt.getId_Emprunt(), user1.getIdUtilisateur(),livre.getTitre(), livre.getAuteur(),emprunt.getDate_Emprunt(),emprunt.getDate_Retour(),emprunt.getStatut()?"En cours" :"Terminee",n});
             }}
@@ -79,9 +77,12 @@ public class Notif {
                         + "L'équipe de la Bibliothèque FST";
                         EmailSender.sendEmail(user1.getLogin(), Subject, Message);
                         JOptionPane.showMessageDialog(frame, "Mail envoyé avec success !");
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
+                    
                     }
+                    catch (IOException e1) {
+                        System.out.println(e1.getMessage()); //debug
+                        JOptionPane.showMessageDialog(frame, "Erreur lors de l'envoi de l'e-mail " );} // message d'erreur en cas ou
+                    
                     
                 }
                 else {

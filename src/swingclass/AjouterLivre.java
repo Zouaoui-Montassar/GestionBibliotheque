@@ -100,13 +100,13 @@ public class AjouterLivre extends JFrame {
 
         if (titre.isEmpty() || auteur.isEmpty() || genre.isEmpty() || (!disponibleRadioButton.isSelected() && !nonDisponibleRadioButton.isSelected())) {
             JOptionPane.showMessageDialog(this, "Veuillez remplir tous les champs avant d'ajouter un livre.", "Erreur", JOptionPane.ERROR_MESSAGE);
-            return; // check
+            return;
         }
 
         boolean disponibilite = disponibleRadioButton.isSelected();
 
 
-        Livre livre = new Livre(titre, auteur, genre, disponibilite); //constructeur maghir id , khatrou auto inc
+        Livre livre = new Livre(titre, auteur, genre, disponibilite);
         try {
             livre.AjouterLivre();
             JOptionPane.showMessageDialog(this, "Book added successfully!");

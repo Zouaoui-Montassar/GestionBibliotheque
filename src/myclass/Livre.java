@@ -26,7 +26,6 @@ public class Livre {
         this.Disponibilite=Disponibilite;
     }
     
-    // constructeur without id
     public Livre(int Id_Livre,String Titre ,String Auteur,String Genre , boolean Disponibilite){
         this.Id_Livre=Id_Livre;
         this.Titre=Titre;
@@ -34,9 +33,7 @@ public class Livre {
         this.Genre=Genre;
         this.Disponibilite=Disponibilite;
     } 
-    public Livre(int Id_Livre){
-        this.Id_Livre=Id_Livre;
-    }
+
     @Override
     public String toString(){
         return "livre{" +
@@ -84,28 +81,24 @@ public class Livre {
         return Disponibilite;
     }
     
-    // tekhou id traja3 livre kemel mel base ( nest7a9ouha lel res)
+    //retourner type livre par son ID
     public static Livre getLivreById(int id) throws IOException {
         DataBaseConnection dbcnx = new DataBaseConnection();
         Connection connection = null;
         Livre livre = null;
-
         try {
             connection = dbcnx.getConnection();
             String query = "SELECT * FROM Livre WHERE Id_Livre = ?";
             try (PreparedStatement ps = connection.prepareStatement(query)) {
                 ps.setInt(1, id);
                 ResultSet resultSet = ps.executeQuery();
-
                 if (resultSet.next()) {
-                    
                     livre = new Livre(
                             resultSet.getInt("Id_Livre"),
                             resultSet.getString("Titre"),
                             resultSet.getString("Auteur"),
                             resultSet.getString("Genre"),
-                            resultSet.getBoolean("Disponibilite")
-                    );
+                            resultSet.getBoolean("Disponibilite"));
                 }
             }
         } catch (SQLException e) {
@@ -113,33 +106,30 @@ public class Livre {
         } finally {
             dbcnx.closeConnection();
         }
-
         return livre;
     }
 
-    // optional , only done by bibliothecaire 
+    //ajouter un livre (utilise seulement dans l'interface de la bibliothecaire)
     public void AjouterLivre() throws IOException {
         DataBaseConnection dbcnx = new DataBaseConnection();
         Connection conn = null;
         try  {
             conn = dbcnx.getConnection();
-            String query = "INSERT INTO Livre (Titre, Auteur, Genre, Disponibilite) VALUES (?, ?, ?, ?)"; // ne9sa el id normalement , hata netfehmou
+            String query = "INSERT INTO Livre (Titre, Auteur, Genre, Disponibilite) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, Titre);
             ps.setString(2, Auteur);
             ps.setString(3, Genre);
             ps.setBoolean(4, Disponibilite);
-            int n = ps.executeUpdate();
-            if (n>0){
-                System.out.println("Livre ajouté !" + Id_Livre);
-            }
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw new IOException("Erreur d'ajout: " + e.getMessage());
         } finally {
             dbcnx.closeConnection();
         }
     }
-    // optional , only done by bibliothecaire
+
+    //supprimer un livre (utilise seulement dans l'interface de la bibliothecaire)
     public void SupprimerLivre(int Id_Livre) throws IOException{
         DataBaseConnection dbcnx = new DataBaseConnection();
         Connection conn = null;
@@ -154,8 +144,6 @@ public class Livre {
             } else {
                 throw new IOException("Ce livre n'existe pas");
             }
-            
-
         } catch (SQLException e) {
             throw new IOException("Erreur de suppression: " + e.getMessage());
         } finally {
@@ -163,53 +151,43 @@ public class Livre {
         }
     }
     
+    //modifier la disponibilite de livre
     public void ModifierDisponibility(int Id_Livre) throws IOException{
         DataBaseConnection dbcnx = new DataBaseConnection();
         Connection conn = null;
         try {
             conn = dbcnx.getConnection();
-
-        String query= "UPDATE livre set Disponibilite = ? where Id_Livre = ?";
-        PreparedStatement ps = conn.prepareStatement(query);
-        ps.setBoolean(1,!Disponibilite);
-        System.out.println(!Disponibilite);
-        ps.setInt(2, Id_Livre);
-        ps.executeUpdate();
-        System.out.println("Disponibilité modifié ! ");  
-        }
-        catch(SQLException e) {
+            String query= "UPDATE livre set Disponibilite = ? where Id_Livre = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setBoolean(1,!Disponibilite);
+            ps.setInt(2, Id_Livre);
+            ps.executeUpdate();
+        }catch(SQLException e) {
             throw new IOException("Erreur de modification de la disponibilité " + e.getMessage());
-        }
-        finally {
+        }finally {
              dbcnx.closeConnection();
         }
     }
 
+    //retourner liste toute les livres qui s'affiche apres la recherche
     public static Livre[] RechercherLivre(String Titre) throws IOException{
         DataBaseConnection dbcnx = new DataBaseConnection();
         Connection conn = null;
         Livre[] livres = null;
         try {
             conn = dbcnx.getConnection();
-            
-    
             String indic_rech = "%" + Titre + "%";
             String query ="SELECT * FROM Livre WHERE Titre LIKE ?";
             PreparedStatement ps = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setString(1, indic_rech);
             ResultSet rs = ps.executeQuery();
-    
             if (!rs.next()){
                 throw new IOException("Aucun livre existe avec ce titre");
             } else {
-                // Determine the number of rows in the result set
                 rs.last();
                 int rowCount = rs.getRow();
                 rs.beforeFirst();
-    
-                // Initialize the array based on the number of rows
                 livres = new Livre[rowCount];
-    
                 int i = 0;
                 while (rs.next()){
                     Livre l = new Livre(rs.getInt("Id_Livre"), rs.getString("Titre"),
@@ -227,12 +205,12 @@ public class Livre {
         return livres;
     } 
 
+
     public void AfficherDetailsLivre() throws IOException{
-            DataBaseConnection dbcnx = new DataBaseConnection();
+        DataBaseConnection dbcnx = new DataBaseConnection();
         Connection conn = null;
         try {
             conn = dbcnx.getConnection();
-
             String query="SELECT * FROM Livre where Id_Livre= ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, 7);
@@ -260,34 +238,31 @@ public class Livre {
         }
     }
     
-public static List<Livre> AfficherCatalogue() throws IOException {
+    //retourner liste de toute les livres
+    public static List<Livre> AfficherCatalogue() throws IOException {
         DataBaseConnection dbcnx = new DataBaseConnection();
         Connection conn = null;
-    List<Livre> livres = new ArrayList<>();
-
-    try {
-        conn = dbcnx.getConnection();
-        String query = "SELECT Id_Livre, Titre, Auteur, Genre, Disponibilite FROM Livre";
-        Statement st = conn.createStatement();
-        ResultSet rs = st.executeQuery(query);
-
-        while (rs.next()) {
-            int id = rs.getInt("Id_Livre");
-            String titre = rs.getString("Titre");
-            String auteur = rs.getString("Auteur");
-            String genre = rs.getString("Genre");
-            boolean disp = rs.getBoolean("Disponibilite");
-
-            Livre livre = new Livre(id, titre, auteur, genre, disp);
-            livres.add(livre);
+        List<Livre> livres = new ArrayList<>();
+        try {
+            conn = dbcnx.getConnection();
+            String query = "SELECT Id_Livre, Titre, Auteur, Genre, Disponibilite FROM Livre";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                int id = rs.getInt("Id_Livre");
+                String titre = rs.getString("Titre");
+                String auteur = rs.getString("Auteur");
+                String genre = rs.getString("Genre");
+                boolean disp = rs.getBoolean("Disponibilite");
+                Livre livre = new Livre(id, titre, auteur, genre, disp);
+                livres.add(livre);
+            }
+        } catch (SQLException e) {
+            throw new IOException("Erreur d'affichage du catalogue " + e.getMessage());
+        } finally {
+            dbcnx.closeConnection();
         }
-    } catch (SQLException e) {
-        throw new IOException("Erreur d'affichage du catalogue " + e.getMessage());
-    } finally {
-        dbcnx.closeConnection();
+        return livres;
     }
-
-    return livres;
-}
 
 }

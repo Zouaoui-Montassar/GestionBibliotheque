@@ -41,7 +41,7 @@ public class NewAccountForm {
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        gbc.gridwidth = 1; // gridwidth nraj3ou lel 1 
+        gbc.gridwidth = 1;
         frame.add(label1, gbc);
         gbc.gridx = 1;
         gbc.gridy = 1;

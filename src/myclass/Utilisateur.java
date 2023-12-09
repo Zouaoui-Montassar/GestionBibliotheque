@@ -1,14 +1,10 @@
 package myclass;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javax.swing.JOptionPane;
-
 import Exceptions.IOException;
-
 
 public class Utilisateur {
     private int Id_Utilisateur;
@@ -25,7 +21,6 @@ public class Utilisateur {
             this.Login = login;
             this.Pwd = pwd;
             this.Role = role;
-    
     }
 
     public int getIdUtilisateur() {
@@ -88,24 +83,27 @@ public class Utilisateur {
                 '}';
     }
 
+    // chercher utilisateur depuis login et mot de passe
     public static Utilisateur authentifier(String login, String password) throws IOException {
         DataBaseConnection dbcnx = new DataBaseConnection();
         Connection connection = null;
         boolean isAuthenticated = false;
         Utilisateur user = null;
-
             try {
                 connection= dbcnx.getConnection();
                 String sql = "SELECT * FROM Utilisateur WHERE Login=? AND Pwd=?";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, login);
                 preparedStatement.setString(2, password);
-
                 ResultSet resultSet = preparedStatement.executeQuery();
                 isAuthenticated = resultSet.next();
                 if (isAuthenticated) {
-                    user = new Utilisateur(resultSet.getInt("Id_Utilisateur"), resultSet.getString("Nom"), resultSet.getString("Prenom"), resultSet.getString("Login"), resultSet.getString("Pwd"), resultSet.getString("Role"));
-                    System.out.println(user);
+                    user = new Utilisateur( resultSet.getInt("Id_Utilisateur"),
+                                            resultSet.getString("Nom"),
+                                            resultSet.getString("Prenom"),
+                                            resultSet.getString("Login"), 
+                                            resultSet.getString("Pwd"), 
+                                            resultSet.getString("Role"));
                 }
                 resultSet.close();
                 preparedStatement.close();
@@ -114,13 +112,16 @@ public class Utilisateur {
             } finally {
                 dbcnx.closeConnection();
             }
-
         return user;
     }
-    public static boolean isValidEmail(String email) {
+    
+    //contole de saisie sur login(email)
+    private boolean isValidEmail(String email) {
         return email != null && email.contains("@") && email.lastIndexOf(".") > email.lastIndexOf("@");
     }
-    public static boolean isValidPassword(String password) {
+
+    //contole de saisie sur password
+    private boolean isValidPassword(String password) {
         if ((password.length() < 8)||(!password.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*"))||(!password.matches(".*\\d.*"))||
         (!password.matches(".*[A-Z].*"))||(!password.matches(".*[a-z].*"))) {
             return false;
@@ -128,6 +129,38 @@ public class Utilisateur {
         return true;
     }
 
+    //verifier l'existance de login
+    private boolean LoginExists(String login,Connection conn) {
+        boolean exists = false;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            String query = "SELECT COUNT(*) AS total FROM Utilisateur WHERE Login = ?";
+            statement = conn.prepareStatement(query);
+            statement.setString(1, login);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt("total");
+                exists = count > 0; 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return exists;
+    }
+
+    //creer un nouveau compte
     public void CreerCompte() throws IOException {
         DataBaseConnection dbcnx = new DataBaseConnection();
         Connection conn = null;
@@ -138,6 +171,7 @@ public class Utilisateur {
             String role = this.getRole(); 
             if (isValidEmail(Login)) {
                 if (isValidPassword(Pwd)) {
+                    if (!LoginExists(Login,conn)){
                 stmt = conn.prepareStatement("INSERT INTO utilisateur (Nom, Prenom, Login, Pwd, Role) VALUES (?, ?, ?, ?, ?)");
                 stmt.setString(1, this.getNom());
                 stmt.setString(2, this.getPrenom());
@@ -145,11 +179,12 @@ public class Utilisateur {
                 stmt.setString(4, this.getPwd());
                 stmt.setString(5, role);
                 stmt.executeUpdate();
-                } else {
+                }else {
+                    throw new IOException("votre mail existe deja , vous avez deja un compte essaie de connecter");
+                }} else {
                     throw new IOException("mot de passe doit contient au moins un caractere majuscule ,"+
                      "au moins un caractere minuscule, au moins caractere spécial , au moins un chiffres et la longeur minimale est 8 caracteres");
-                }
-            } else {
+                }} else {
                 throw new IOException("Login invalide il faut etre sous la forme example@example.com");
             }
         } catch (SQLException e) {
@@ -159,33 +194,63 @@ public class Utilisateur {
         }
     }
     
+    //supprimer un compte
     public void SupprimerCompte() throws IOException {
         DataBaseConnection dbcnx = new DataBaseConnection();
         Connection conn = null;
         PreparedStatement stmt = null;
-
         try {
-            conn =  dbcnx.getConnection();
+            conn = dbcnx.getConnection();
             String role = this.getRole();
             if (role.equals("Etudiant") || role.equals("Enseignant")) {
-                stmt = conn.prepareStatement("Delete  from utilisateur WHERE Id_Utilisateur = ? ");
+                if (hasUnvalidatedEmprunts(conn, this.getIdUtilisateur())) {
+                    throw new IOException("Vous avez des emprunts en cours, veuillez les valider avant de supprimer le compte.");
+                }
+                stmt = conn.prepareStatement("UPDATE emprunt SET Id_Utilisateur = 1 WHERE Id_Utilisateur = ?");
+                stmt.setInt(1, this.getIdUtilisateur());
+                System.out.println(stmt.executeUpdate());
+
+                stmt = conn.prepareStatement("DELETE FROM utilisateur WHERE Id_Utilisateur = ?");
                 stmt.setInt(1, this.getIdUtilisateur());
                 stmt.executeUpdate();
             } else {
-                JOptionPane.showMessageDialog(null, "Cet Utilisateur ne peut pas supprimer un compte");
+                JOptionPane.showMessageDialog(null, "Cet Utilisateur ne peut pas supprimer un compte.");
             }
         } catch (SQLException e) {
-            throw new IOException("Erreur lors de la Suppression du compte: " + e.getMessage());
+            throw new IOException("Erreur lors de la suppression du compte."+e.getMessage());
         } finally {
             dbcnx.closeConnection();
         }
     }
     
+    //verifier si l'utilisateur a des emprunts non validés
+    private boolean hasUnvalidatedEmprunts(Connection conn, int userId) throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet resultSet = null;
+        try {
+            stmt = conn.prepareStatement("SELECT COUNT(*) AS total FROM emprunt WHERE Id_Utilisateur = ? AND Statut = true");
+            stmt.setInt(1, userId);
+            resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt("total");
+                return count > 0;
+            }
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+        }
+        return false;
+    }
+    
+    //modifer compte
     public void ModifierCompte(String nom, String prenom, String login, String pwd, String role) throws IOException {
         DataBaseConnection dbcnx = new DataBaseConnection();
         Connection conn = null;
         PreparedStatement stmt = null;
-    
         try {
             conn =  dbcnx.getConnection();
             String role1 = this.getRole();
@@ -199,7 +264,7 @@ public class Utilisateur {
                 stmt.setInt(6, this.getIdUtilisateur());
                 stmt.executeUpdate();
             } else {
-                JOptionPane.showMessageDialog(null, "This user cannot modify an account.");
+                JOptionPane.showMessageDialog(null, "cet utilisateur ne peut pas modifier son compte");
             }
         } catch (SQLException e) {
             throw new IOException("Erreur lors de la modification du compte: " + e.getMessage());

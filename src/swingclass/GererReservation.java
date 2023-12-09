@@ -35,11 +35,11 @@ public class GererReservation {
                 return false;
             }
         };
-        model.addColumn("ID_RESERVATION");
+        model.addColumn("ID");
         model.addColumn("Titre");
         model.addColumn("Auteur");
-        model.addColumn("date reservation");
-        model.addColumn("statut Actuel");
+        model.addColumn("Date reservation");
+        model.addColumn("Statut Actuel");
         try {
             List<Reservation> reservations = Reservation.AfficherReservation(user);
             for (Reservation reservation : reservations) {
@@ -59,15 +59,26 @@ public class GererReservation {
         });
         JButton Button1 = new JButton("Annuler la reservation");
         Button1.addActionListener(e -> {
-                //System.out.println(selectedRow);
                 if (selectedRow != -1) {
                 	try {
                         int Id_Reservation = (int) table.getValueAt(selectedRow, 0);
                         Reservation reservation= Reservation.ChercherReservation(Id_Reservation);
-                        reservation.AnnulerReservation(reservation.getId_Reservation());
+                        int confirmResult = JOptionPane.showConfirmDialog(
+                frame,
+                "Voulez-vous vraiment annuler cette reservation?",
+                "Confirmation",
+                JOptionPane.YES_NO_OPTION);
+
+
+                if (confirmResult == JOptionPane.YES_OPTION){
+
+                        reservation.AnnulerReservation();
                         JOptionPane.showMessageDialog(frame, "Reservation annuleé avec succès!");
                         SwingUtilities.invokeLater(() -> new GererReservation(user)); 
-                        frame.dispose();   
+                        frame.dispose();   }
+                        else{
+                            JOptionPane.showMessageDialog(frame, "Opération annulée ");
+                        }
                     } catch (IOException e1) {
                         JOptionPane.showMessageDialog(frame, "Erreur.");
                     }           
@@ -85,7 +96,6 @@ public class GererReservation {
         buttonPanel.add(button_Accueil);
         buttonPanel.add(Button1);
         
-
         frame.getContentPane().setLayout(new BorderLayout());
         frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
         frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);

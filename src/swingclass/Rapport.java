@@ -8,9 +8,6 @@ import javax.swing.table.DefaultTableModel;
 import myclass.Emprunt;
 import myclass.Utilisateur;
 
-// Update the frame to display book and user statistics
-
-
 public class Rapport {
     public Rapport(Utilisateur user) {
         JFrame frame = new JFrame("Rapport statistiques");
@@ -19,7 +16,6 @@ public class Rapport {
         frame.setSize(1024, 768);
         frame.setLocationRelativeTo(null);
 
-        // Create separate columns for each table
         DefaultTableModel bookModel = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {

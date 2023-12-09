@@ -13,7 +13,7 @@ public class RechercherLivre {
     private JTextField searchField;
 
     public RechercherLivre(Utilisateur user) {
-        System.out.println(user+"men interface el recherche livre , w mazelna ma gadina chay ");
+        
         frame = new JFrame("Rechercher Livre");
         frame.setLayout(new BorderLayout());
         frame.setSize(1024, 768);

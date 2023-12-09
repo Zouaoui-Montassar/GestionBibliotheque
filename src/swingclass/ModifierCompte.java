@@ -101,9 +101,7 @@ public class ModifierCompte {
             }else {
                 role = user.getRole();
             }
-            System.out.println(nom + " " + prenom + " " + login + " " +password + " " +password2+" "+role);
             if (password.equals(password2) || (passwordField1.getPassword().length==0 && password2.isEmpty())) {
-
                 try {
                     user.ModifierCompte(nom,prenom,login,password,role);
                     SwingUtilities.invokeLater(() -> new LoginForm());
