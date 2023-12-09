@@ -68,10 +68,10 @@ public class LoginForm {
             frame.dispose();
         });
         resetButton.addActionListener(e -> {
-                textField1.setText("kaou.achraf@etudiant-fst.utm.tn");
-                passwordField1.setText("achraf123");
+                textField1.setText("bibliotheque.enligne.fst@gmail.com");
+                passwordField1.setText("adminpassword");
         });
-        // layout , kol component nguedlou grid w nzidou , lezem haka , el layout eli khdemt bih howua el gridbaglayout()
+        // layout , kol component nguedlou grid w nzidou , lezem haka , el layout eli khdemt bih howua el gridbaglayout() , wel flow lel mtaa tab
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;

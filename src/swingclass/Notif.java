@@ -43,6 +43,7 @@ public class Notif {
             for (Emprunt emprunt : emprunts) {
                 Utilisateur user1 = Emprunt.AfficherUser(emprunt);
                 int n = Emprunt.CalculeJoursRestant(user1, emprunt);
+                // 3 jours , hot 100 w testi
                 if (n<=3){
             	Livre livre=Emprunt.AfficherLivre(emprunt);
                 model.addRow(new Object[]{emprunt.getId_Emprunt(), user1.getIdUtilisateur(),livre.getTitre(), livre.getAuteur(),emprunt.getDate_Emprunt(),emprunt.getDate_Retour(),emprunt.getStatut()?"En cours" :"Terminee",n});
