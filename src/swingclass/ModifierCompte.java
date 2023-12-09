@@ -6,46 +6,87 @@ import Exceptions.*;
 import myclass.Utilisateur;
 
 public class ModifierCompte {
-    public ModifierCompte(Utilisateur user){
+    public ModifierCompte(Utilisateur user) {
         JFrame frame = new JFrame("ModfierCompteForm");
-        frame.setLayout(new FlowLayout());
+        frame.setLayout(new GridBagLayout());
         frame.setSize(1024, 768);
         frame.setVisible(true);
 
-        JLabel label1 = new JLabel("Nom : ");
-        JLabel label2 = new JLabel("Prenom : ");
-        JLabel label3 = new JLabel("Login : ");
-        JLabel label4 = new JLabel("New password : ");
-        JLabel label5 = new JLabel("Confirm new password : ");
-        JLabel label6 = new JLabel("Vous etes : ");
-        JTextField textField1 = new JTextField(50);
-        JTextField textField2 = new JTextField(50);
-        JTextField textField3 = new JTextField(50);
-        JRadioButton radioButton1 = new JRadioButton("Etudiant");
-        JRadioButton radioButton2 = new JRadioButton("Enseignant");
-        JPasswordField passwordField1 = new JPasswordField(50);
-        JPasswordField passwordField2 = new JPasswordField(50);
-        ButtonGroup group = new ButtonGroup();
-        group.add(radioButton1);
-        group.add(radioButton2);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
 
-        frame.add(label1);
-        frame.add(textField1);
-        frame.add(label2);
-        frame.add(textField2);
-        frame.add(label3);
-        frame.add(textField3);
-        frame.add(label6);
-        frame.add(radioButton1);
-        frame.add(radioButton2);
-        frame.add(label4);
-        frame.add(passwordField1);
-        frame.add(label5);
-        frame.add(passwordField2);
+        JLabel label1 = new JLabel("Nom : ");
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        frame.add(label1, gbc);
+
+        JTextField textField1 = new JTextField(50);
+        gbc.gridx = 1;
+        frame.add(textField1, gbc);
+
+        JLabel label2 = new JLabel("Prenom : ");
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        frame.add(label2, gbc);
+
+        JTextField textField2 = new JTextField(50);
+        gbc.gridx = 1;
+        frame.add(textField2, gbc);
+
+        JLabel label3 = new JLabel("Login : ");
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        frame.add(label3, gbc);
+
+        JTextField textField3 = new JTextField(50);
+        gbc.gridx = 1;
+        frame.add(textField3, gbc);
+
+        JLabel label6 = new JLabel("Vous etes : ");
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        frame.add(label6, gbc);
+
+        JRadioButton radioButton1 = new JRadioButton("Etudiant");
+        gbc.gridx = 1;
+        frame.add(radioButton1, gbc);
+
+        JRadioButton radioButton2 = new JRadioButton("Enseignant");
+        gbc.gridx = 2;
+        frame.add(radioButton2, gbc);
+
+        JLabel label4 = new JLabel("New password : ");
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        frame.add(label4, gbc);
+
+        JPasswordField passwordField1 = new JPasswordField(50);
+        gbc.gridx = 1;
+        frame.add(passwordField1, gbc);
+
+        JLabel label5 = new JLabel("Confirm new password : ");
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        frame.add(label5, gbc);
+
+        JPasswordField passwordField2 = new JPasswordField(50);
+        gbc.gridx = 1;
+        frame.add(passwordField2, gbc);
+
         JButton Retour = new JButton("Retour");
-        Retour.addActionListener(e -> {SwingUtilities.invokeLater(() -> new GererCompte(user));frame.dispose();});
-        frame.add(Retour);
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.gridwidth = 1;
+        Retour.addActionListener(e -> {
+            SwingUtilities.invokeLater(() -> new GererCompte(user));
+            frame.dispose();
+        });
+        frame.add(Retour, gbc);
+
         JButton button = new JButton("Valider modification ");
+        gbc.gridx = 1;
+        gbc.gridy = 6;
+        gbc.gridwidth = 2;
         button.addActionListener(e -> {
             String nom = (!textField1.getText().isEmpty()) ? textField1.getText() :  user.getNom();
             String prenom = (!textField2.getText().isEmpty()) ? textField2.getText() :  user.getPrenom();
@@ -74,8 +115,8 @@ public class ModifierCompte {
                 JOptionPane.showMessageDialog(frame, "Entrees invalide");
             }
         });
+        frame.add(button, gbc);
+        frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(button);
-
     }
 }

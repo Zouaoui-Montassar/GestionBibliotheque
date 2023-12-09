@@ -41,7 +41,7 @@ public class SupprimerCompte {
                     JOptionPane.showMessageDialog(frame, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(frame, "Les mots de passe ne correspondent pas. Veuillez réessayer.");
+                JOptionPane.showMessageDialog(frame, "Entrez votre mot de passe pour la suppresion.");
             }
         });
         frame.add(button, gbc);
