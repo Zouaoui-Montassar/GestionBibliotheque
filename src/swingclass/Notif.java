@@ -42,7 +42,7 @@ public class Notif {
                     emprunt.getDate_Emprunt(),
                     emprunt.getDate_Retour(),
                     emprunt.getStatut()?"En cours" :"Terminee",n});
-                    System.out.println(n);
+                    
             }}
         } catch (IOException e) {
             JOptionPane.showMessageDialog(frame, e.getMessage());

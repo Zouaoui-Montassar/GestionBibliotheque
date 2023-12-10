@@ -96,7 +96,7 @@ public class AjouterLivre extends JFrame {
         Livre livre = new Livre(titre, auteur, genre, disponibilite);
         try {
             livre.AjouterLivre();
-            JOptionPane.showMessageDialog(this, "Book added successfully!");
+            JOptionPane.showMessageDialog(this, "Livre ajouté avec success !");
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Error adding book: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }

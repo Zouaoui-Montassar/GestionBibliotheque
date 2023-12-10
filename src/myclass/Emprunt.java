@@ -445,8 +445,9 @@ public class Emprunt {
         long n = 0;
         try {
             conn = dbcnx.getConnection();
-            stmt = conn.prepareStatement("SELECT MAX(Date_Retour) AS MaxDate FROM emprunt WHERE Id_Utilisateur = ?");
+            stmt = conn.prepareStatement("SELECT MAX(Date_Retour) AS MaxDate FROM emprunt WHERE Id_Utilisateur = ? AND Id_Emprunt = ?");
             stmt.setInt(1, user.getIdUtilisateur());
+            stmt.setInt(2, emprunt.getId_Emprunt());
             resultSet = stmt.executeQuery();
     
             if (resultSet.next()) {
@@ -463,7 +464,7 @@ public class Emprunt {
         } finally {
             dbcnx.closeConnection();
         }
-        return (int) n;
+        return (int) n+1;
     }
 
     //retourne une liste de tout les emprunts en cours
