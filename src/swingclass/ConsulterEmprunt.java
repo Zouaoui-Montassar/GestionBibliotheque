@@ -1,5 +1,4 @@
 package swingclass;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import Exceptions.IOException;

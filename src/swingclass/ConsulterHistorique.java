@@ -1,9 +1,7 @@
 package swingclass;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-
 import Exceptions.IOException;
 import java.awt.*;
 import myclass.*;
@@ -29,7 +27,6 @@ public class ConsulterHistorique  {
         model.addColumn("Date Emprunte");
         model.addColumn("Date Retour");
         model.addColumn("Statut Actuel");
-
         try {
             List<Emprunt> emprunts = Emprunt.AfficherHistoriqueEmprunt(user);
             for (Emprunt emprunt : emprunts) {

@@ -1,5 +1,7 @@
-import java.io.File;import Exceptions.IOException;
-import javax.swing.SwingUtilities;import swingclass.*;
+import java.io.File;
+import Exceptions.IOException;
+import javax.swing.SwingUtilities;
+import swingclass.*;
 public class App {
     private static final String LOCK_FILE_PATH = "app.lock"; 
     public static void main(String[] args) throws java.io.IOException, IOException {

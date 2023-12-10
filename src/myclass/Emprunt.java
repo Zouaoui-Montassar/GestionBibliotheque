@@ -1,11 +1,4 @@
 package myclass;
-
-/* 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Properties;*/
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -562,26 +555,5 @@ public class Emprunt {
         return Rappel;
     }
     
-    /* 
-    public static void sendEmail(String recipientEmail, String subject, String body) {
-        String senderEmail = "bibliotheque.enligne.fst@gmail.com"; 
 
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.tunet.tn"); // topnet
-        props.put("mail.smtp.port", "25");
-        props.put("mail.smtp.starttls.enable", "false");
-        Session session = Session.getDefaultInstance(props);
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(senderEmail));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
-            message.setSubject(subject);
-            message.setText(body);
-            session.setDebug(true);
-            Transport.send(message);
-            System.out.println("E-mail envoyé avec succès !");
-        } catch (MessagingException e) {
-            System.out.println("Erreur lors de l'envoi de l'e-mail : " + e.getMessage());
-        }
-    }*/
 }

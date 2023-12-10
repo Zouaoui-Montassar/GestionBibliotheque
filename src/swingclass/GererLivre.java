@@ -1,7 +1,5 @@
 package swingclass;
-
 import java.awt.*;
-
 import javax.swing.*;
 import myclass.*;
 
@@ -23,8 +21,6 @@ public class GererLivre {
         button1.setPreferredSize(buttonSize);
         frame.add(button1,gbcButton1);
 
-        
-               
         GridBagConstraints gbcButton2 = new GridBagConstraints();
         gbcButton2.gridx = 0;
         gbcButton2.gridy = 1;
@@ -32,7 +28,6 @@ public class GererLivre {
         JButton button2 = new JButton("Supprimer Livre");
         button2.setPreferredSize(buttonSize);
         frame.add(button2 , gbcButton2);
-
 
         GridBagConstraints gbcButton3 = new GridBagConstraints();
         gbcButton3.gridx = 0;

@@ -1,10 +1,8 @@
 package swingclass;
-
 import javax.swing.*;
 import Exceptions.IOException;
 import java.awt.*;
 import myclass.*;
-
 public class AjouterLivre extends JFrame {
 
     private JTextField titreField;
@@ -51,38 +49,27 @@ public class AjouterLivre extends JFrame {
             frame.dispose();
         });
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridx = 0; gbc.gridy = 0;
         frame.add(titreLabel, gbc);
-        gbc.gridx = 1;
-        gbc.gridy = 0;
+        gbc.gridx = 1; gbc.gridy = 0;
         frame.add(titreField, gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridx = 0; gbc.gridy = 1;
         frame.add(auteurLabel, gbc);
-        gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridx = 1; gbc.gridy = 1;
         frame.add(auteurField, gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridx = 0; gbc.gridy = 2;
         frame.add(genreLabel, gbc);
-        gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridx = 1; gbc.gridy = 2;
         frame.add(genreField, gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridx = 0; gbc.gridy = 3;
         frame.add(disponibiliteLabel, gbc);
-        gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridx = 1; gbc.gridy = 3;
         frame.add(disponibleRadioButton, gbc);
-        gbc.gridx = 1;
-        gbc.gridy = 4;
+        gbc.gridx = 1; gbc.gridy = 4;
         frame.add(nonDisponibleRadioButton, gbc);
-        gbc.gridx = 1;
-        gbc.gridy = 5;
+        gbc.gridx = 1; gbc.gridy = 5;
         frame.add(addButton, gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridx = 0; gbc.gridy = 5;
         frame.add(backButton, gbc);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

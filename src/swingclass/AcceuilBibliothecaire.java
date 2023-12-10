@@ -1,5 +1,4 @@
 package swingclass;
-
 import java.awt.*;
 import javax.swing.*;
 import myclass.*;
@@ -11,7 +10,6 @@ public class AcceuilBibliothecaire {
         frame.setSize(1024, 768);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10); 
-
         Dimension buttonSize = new Dimension(300, 30);
 
         JButton button = new JButton("Liste des emprunts");
@@ -20,16 +18,12 @@ public class AcceuilBibliothecaire {
         gbc.gridy = 0;
         frame.add(button, gbc);
         
-
         JButton button5 = new JButton("Rapport a propos notre bibliotheque");
         button5.setPreferredSize(buttonSize);
         gbc.gridx = 0;
         gbc.gridy = 1;
         frame.add(button5, gbc);
 
-
-
-        
         JButton button2 = new JButton("Notification par email");
         button2.setPreferredSize(buttonSize);
         gbc.gridx = 0;
@@ -43,16 +37,12 @@ public class AcceuilBibliothecaire {
         gbc.gridy = 3;
         frame.add(button3, gbc);
         
-
-
-        
         JButton button4 = new JButton ("Deconnexion");
         button4.setPreferredSize(buttonSize);
         gbc.gridx = 0;
         gbc.gridy = 4;
         frame.add(button4, gbc);
         
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null); 
         frame.setVisible(true);
@@ -64,6 +54,5 @@ public class AcceuilBibliothecaire {
         button3.addActionListener(e -> {SwingUtilities.invokeLater(() -> new GererLivre(user));frame.dispose();});   
         button4.addActionListener(e -> {SwingUtilities.invokeLater(() -> new LoginForm());frame.dispose();});
 
-        
     }
 }
